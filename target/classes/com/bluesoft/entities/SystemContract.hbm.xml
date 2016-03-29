@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 02:15:21 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.bluesoft.entities.SystemContract" table="system_contract" schema="public" optimistic-lock="version">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="system" class="com.bluesoft.entities.System" fetch="select">
+            <column name="system_id" />
+        </many-to-one>
+        <property name="active" type="java.lang.Boolean">
+            <column name="active" />
+        </property>
+        <property name="amount" type="big_decimal">
+            <column name="amount" />
+        </property>
+        <property name="amountPeriod" type="string">
+            <column name="amount_period" length="5" />
+        </property>
+        <property name="amountType" type="string">
+            <column name="amount_type" length="5" />
+        </property>
+        <property name="authorizationPercent" type="big_decimal">
+            <column name="authorization_percent" />
+        </property>
+        <property name="fromDate" type="date">
+            <column name="from_date" length="13" />
+        </property>
+        <property name="orderNumber" type="string">
+            <column name="order_number" length="12" />
+        </property>
+        <property name="request" type="string">
+            <column name="request" length="12" />
+        </property>
+        <property name="toDate" type="date">
+            <column name="to_date" length="13" />
+        </property>
+    </class>
+</hibernate-mapping>
