@@ -24,7 +24,12 @@ import com.bluesoft.entities.SystemContract;
 	 public void doGet(HttpServletRequest request, HttpServletResponse response)
 	   throws ServletException, IOException {
 
-		  SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		 final DataTableRequestParam param = DataTablesParamUtility.getParam(request);
+		 
+		 String sEcho = param.sEcho;
+
+		 
+		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		  Session session = sessionFactory.openSession();
 		  
 		 Query query = session.createQuery("from SystemContract");
@@ -34,9 +39,14 @@ import com.bluesoft.entities.SystemContract;
 		  List<SystemContract> list = query.list();
 		  
 		  JSONObject result = new JSONObject();
+
+		  result.put("sEcho", sEcho);
+		  result.put("iTotalRecords", 3);
+		  result.put("iTotalDisplayRecords", 3);
+			
 		  result.put("aaData", convertToJSONArray(list));
 		  out.print(result);
-		  //session.close();
+		  session.close();
 	 }
 
 	 public JSONArray convertToJSONArray(List<SystemContract> list){

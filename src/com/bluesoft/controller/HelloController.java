@@ -37,6 +37,7 @@ import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,7 +61,11 @@ public class HelloController {
 		return modelandview;
 	}
 	
-	
+	@RequestMapping(value = {"/home"}, method = RequestMethod.GET)
+	public String firstPage(Model model) {
+		model.addAttribute("firstPageMessage", "This is the first page");
+		return "home";
+	}
 	
 	
 	
