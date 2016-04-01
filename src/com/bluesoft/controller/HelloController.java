@@ -66,10 +66,4 @@ public class HelloController {
 		model.addAttribute("firstPageMessage", "This is the first page");
 		return "home";
 	}
-	
-	
-	
-	
-
-	
 }

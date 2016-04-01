@@ -28,9 +28,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/DeleteData")
 public class DeleteData {
 
-	/**
-	 * This servlet handles post request from the JEditable and updates company property that is edited
-	 */
 	@RequestMapping(method = RequestMethod.POST , produces = "application/json")
 	@ResponseBody
 	public String singleDelete(HttpServletRequest request, HttpServletResponse response){
@@ -40,28 +37,15 @@ public class DeleteData {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		 //String query = String.format("update SystemContract set %s = '%s' where id = %d",columnName,value,id);
-		 Query query = session.createQuery("delete SystemContract where id = :id");
-		 query.setParameter("id", id);
-		 int result = query.executeUpdate();
+		Query query = session.createQuery("delete SystemContract where id = :id");
+		query.setParameter("id", id);
+		int result = query.executeUpdate();
 		 
-		 Transaction tx=null;
-		 tx=session.beginTransaction();
-	      tx.commit();
-	      session.close();
-		 //selectQuery.setParameter("id", id);
-		 //selectQuery.setParameter("columnName", columnName);
-		 //selectQuery.setParameter("value", value);
-		//int columnId = Integer.parseInt(request.getParameter("columnId"));
-		//int columnPosition = Integer.parseInt(request.getParameter("columnPosition"));
-		//int rowId = Integer.parseInt(request.getParameter("rowId"));
-		//String value = request.getParameter("value");
-		//String columnName = request.getParameter("columnName");
+		Transaction tx=null;
+		tx=session.beginTransaction();
+	    tx.commit();
+	    session.close();
 
-
-	      return "OK";
-		//response.getWriter().print("Error - company cannot be found");
+	    return "OK";
 	}
-
-
 }

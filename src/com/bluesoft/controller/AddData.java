@@ -27,13 +27,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bluesoft.entities.SystemContract;
-import com.bluesoft.resources.XMLReader;
 import com.google.gson.Gson;
 
 /**
  * Handling adding new data
  */
-//@WebServlet(asyncSupported = true, name = "HelloServlet2", urlPatterns = {"/AddData"})
+
 @Controller
 @RequestMapping("/AddData")
 public class AddData {
@@ -46,12 +45,12 @@ public class AddData {
     	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.save(system);
-		 Transaction tx=null;
-		 tx=session.beginTransaction();
-	      tx.commit();
-	      session.close();
+		
+		Transaction tx=null;
+		tx=session.beginTransaction();
+	    tx.commit();
+	    session.close();
         
-
     	return "ok";
     }
 }

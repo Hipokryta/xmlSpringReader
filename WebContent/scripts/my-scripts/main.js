@@ -28,29 +28,24 @@ $(document).ready(function() {
         ] } ).makeEditable({
         	
        sUpdateURL: function(value, settings)
-        	                        {
-        	                        var columnIndex = this.cellIndex;
-        	                        var id = this.parentNode.children[0].textContent;
-        	                   $.ajax({
-        	                	   url: "UpdateData",
-		        	               type: "POST",
-		        	               async: false,
-        	                       data:{"value": value,
-        	                        	  "columnIndex": columnIndex,
-        	                        	  "id":id},
-        	                       success:function() {
-        	                    	
-        	                    	  // Example call to reload from original file
-        	                    	  $('#systemTable').dataTable().fnReloadAjax();
-        	                    	  alert("done");
-        	                    },
-        	                    error:function() {
-        	                    	
-      	                    	  alert("Something went wrong !");
-      	                    }});
-        	                   $('#systemTable').dataTable().fnReloadAjax();
-        	                    return value;
-        	                        }
+	                {
+		                var columnIndex = this.cellIndex;
+		                var id = this.parentNode.children[0].textContent;
+		                $.ajax({
+			        	  url: "UpdateData",
+			              type: "POST",
+			              async: false,
+			              data:{"value": value,
+	                	  "columnIndex": columnIndex,
+	                	  "id":id},
+	                	  success:function() {
+			            	  $('#systemTable').dataTable().fnReloadAjax();
+			            	  alert("done");
+	                	  },
+	                	  error:function() {}});
+		                 $('#systemTable').dataTable().fnReloadAjax();
+		                 return value;
+        	          }
         	});
 	
 
@@ -58,8 +53,6 @@ $(document).ready(function() {
 	 
 	$('form.add-system').submit(function(event) {
 
-        // get the form data
-        // there are many ways to get this data using jQuery (you can use the class or id also)
         var formData = {
             'id'              : $('input[name=id]').val(),
             'active'             : $('input[name=active]').val(),
@@ -73,7 +66,6 @@ $(document).ready(function() {
             'systemId'    : $('input[name=system_id]').val(),
         };
 
-        // process the form
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url         : 'AddData', // the url where we want to POST
@@ -85,17 +77,9 @@ $(document).ready(function() {
             headers :{
             	'Content-Type': 'application/json'
             }
-        })
-            // using the done promise callback
-            .done(function(data) {
-
-                // log data to the console so we can see
-                console.log(data); 
-
-                // here we will handle errors and validation messages
-            });
-
-        // stop the form from submitting the normal way and refreshing the page
+        }).done(function(data) {
+        	$('#systemTable').dataTable().fnReloadAjax(); 
+        });
         event.preventDefault();
     });
  
@@ -108,16 +92,20 @@ $(document).ready(function() {
             type: "POST",
             data:{"id":id},
             success:function() {
-         	  // Example call to reload from original file
          	  $('#systemTable').dataTable().fnReloadAjax();
          	  alert("done");
          },
          error:function() {
-         	
-       	  alert("Something went wrong !- Can't Delete");
+        	 $('#systemTable').dataTable().fnReloadAjax();
        }});
         $('#systemTable').dataTable().fnReloadAjax();
          return value;
        });
- 
+    
+	$('input.desc').css('visibility', 'hidden');
+	$('input[type=file]').change(function (e) {
+		var filePath = $(this).val();
+        $("input.desc").val(filePath);
+        console.log(filePath);
+	});
  });

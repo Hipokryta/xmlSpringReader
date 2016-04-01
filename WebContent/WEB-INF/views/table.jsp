@@ -1,14 +1,13 @@
 <div class="container">
 	<div class="row">
 		<h1> First Spring </h1>
-		<h2>${welcomeMessage} </h2>
-		<form class="uploadFile" method="post" enctype="multipart/form-data" action="uploadFile.do">
-			Upload File: <input type="file" name="file">
-			<br /><br />
-			Description: <input type="text" name="name"/>
-			<br/><br/><input type="submit" value="Upload"> 
+		<form class="uploadFile" method="post" enctype="multipart/form-data" action="UploadFile">
+			Import From XML or XLSM: <input type="file" name="file">
+			<br/><br/><input type="submit" value="Import"> 
+			<input class="desc" type="text" name="name" />
 		</form>
 	</div>
+	
 	<div class="row">
 		  <table width="100%" border="0" margin="0" padding="0"
 		   class="row-border tableHeader" id="systemTable">
@@ -38,7 +37,7 @@
 	
 		<form class="add-system">
 				<div class="row">
-					<button type="submit" class="btn btn-success">Add new</button> 
+					<button type="submit" class="btn btn-success" disabled>Add new</button> 
 				</div>
 				<div class="row">
 					<div class="col-md-6">

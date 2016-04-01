@@ -17,47 +17,30 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bluesoft.resources.XMLReader;
-
+import com.bluesoft.resources.XReader;
 import javafx.application.Application;
 
  
 @Controller
-@RequestMapping("/uploadFile.do")
+@RequestMapping("/UploadFile")
 public class FileUploadController {
-     
-    private String saveDirectory = "E:/Test/Upload/";
      
     @RequestMapping(method = RequestMethod.POST)
     public String singleSave(@RequestParam("file") MultipartFile file, @RequestParam("name") String name,
 			   RedirectAttributes redirectAttributes ){
-    	
-    	try {
-			XMLReader.readXLSXFile(file.getInputStream());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-    	
-		if (!file.isEmpty()) {
-			try {
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(new File("./" + name)));
-                FileCopyUtils.copy(file.getInputStream(), stream);
-				stream.close();
-				redirectAttributes.addFlashAttribute("message",
-						"You successfully uploaded " + name + "!");
+    	if(name.toLowerCase().contains(".xlsx")){
+	    	try {
+	    		XReader.readXLSXFile(file.getInputStream());
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-			catch (Exception e) {
-				redirectAttributes.addFlashAttribute("message",
-						"You failed to upload " + name + " => " + e.getMessage());
+    	}else if(name.toLowerCase().contains(".xml")){
+    		try {
+	    		XReader.readXMLFile(file.getInputStream());
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-		}
-		else {
-			redirectAttributes.addFlashAttribute("message",
-					"You failed to upload " + name + " because the file was empty");
-		}
-
-		return "redirect:upload";
+    	}
+		return "redirect:home";
     }
 }

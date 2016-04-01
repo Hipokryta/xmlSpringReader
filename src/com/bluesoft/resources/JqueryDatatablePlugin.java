@@ -27,7 +27,7 @@ import com.bluesoft.entities.SystemContract;
 		 final DataTableRequestParam param = DataTablesParamUtility.getParam(request);
 		 
 		 String sEcho = param.sEcho;
-
+		 int display = param.iDisplayLength;
 		 
 		 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		  Session session = sessionFactory.openSession();
@@ -41,8 +41,8 @@ import com.bluesoft.entities.SystemContract;
 		  JSONObject result = new JSONObject();
 
 		  result.put("sEcho", sEcho);
-		  result.put("iTotalRecords", 3);
-		  result.put("iTotalDisplayRecords", 3);
+		  result.put("iTotalRecords", list.size());
+		  result.put("iTotalDisplayRecords", display);
 			
 		  result.put("aaData", convertToJSONArray(list));
 		  out.print(result);
@@ -71,5 +71,7 @@ import com.bluesoft.entities.SystemContract;
 		 
 		 return	result;
 	 }
+	 
+	 
 	 
 }

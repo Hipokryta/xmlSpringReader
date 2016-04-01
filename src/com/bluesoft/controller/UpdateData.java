@@ -20,17 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-/**
- * Handler for the update cell action
- */
 @Controller
 @RequestMapping("/UpdateData")
 public class UpdateData {
 
-	/**
-	 * This servlet handles post request from the JEditable and updates company property that is edited
-	 */
 	@RequestMapping(method = RequestMethod.POST , produces = "application/json")
 	@ResponseBody
 	public String singleSave(HttpServletRequest request, HttpServletResponse response){
@@ -83,20 +76,10 @@ public class UpdateData {
 		 
 		 Transaction tx=null;
 		 tx=session.beginTransaction();
-	      tx.commit();
-	      session.close();
-		 //selectQuery.setParameter("id", id);
-		 //selectQuery.setParameter("columnName", columnName);
-		 //selectQuery.setParameter("value", value);
-		//int columnId = Integer.parseInt(request.getParameter("columnId"));
-		//int columnPosition = Integer.parseInt(request.getParameter("columnPosition"));
-		//int rowId = Integer.parseInt(request.getParameter("rowId"));
-		//String value = request.getParameter("value");
-		//String columnName = request.getParameter("columnName");
+	     tx.commit();
+	     session.close();
 
-
-	      return "OK";
-		//response.getWriter().print("Error - company cannot be found");
+	     return "OK";
 	}
 
 
